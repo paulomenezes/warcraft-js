@@ -1,0 +1,11 @@
+{
+  "name": "Warcraft",
+  "main": "game.html",
+  "window": {
+    "width": 700,
+    "height": 500
+  },
+  "dependencies": {
+    "node-mouse": "0.0.2"
+  }
+}
