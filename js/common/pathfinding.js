@@ -1,15 +1,20 @@
-function Pathfinding(sprite, manageTiles) {
-	this.position = [sprite.tilePosition.x, sprite.tilePosition.y];
-	this.goal = [0, 0];
-
+function Pathfinding(originX, originY, manageTiles) {
+	this.position = [originX, originY];
+	
 	this.manageTiles = manageTiles;
-
-	this.openList = [];
-	this.closeList = [];
 
 	this.aux = [
 		[0, -1], [-1, 0], [1, 0], [0, 1]
 	];
+
+	this.reset();
+}
+
+Pathfinding.prototype.reset = function() {
+	this.goal = [0, 0];
+
+	this.openList = [];
+	this.closeList = [];
 
 	this.path = [];
 
@@ -35,20 +40,17 @@ function Pathfinding(sprite, manageTiles) {
 	};
 
 	this.openList.splice(0, 1);
-}
+};
 
-Pathfinding.prototype.setGoal = function(goalX, goalY) {
+Pathfinding.prototype.setGoal = function(originX, originY, goalX, goalY) {
+	this.position = [originX, originY];
+	this.reset();
 	this.goal = [goalX, goalY];
 };
 
 Pathfinding.prototype.findPath = function() {
 	while (this.openList.length > 0) {
-		console.log(this.position);
-
 		if (this.position[0] == this.goal[0] && this.position[1] == this.goal[1]) {
-			PLAY = false;
-			console.log('FIND');
-
 			var parent = null;
 			for (var i = this.closeList.length - 1; i >= 0; i--) {
 				if (!parent) {
@@ -132,8 +134,6 @@ Pathfinding.prototype.findPath = function() {
 				}
 			};
 		} else {
-			console.log('NO PATH');
-			PLAY = false;
 			return null;
 		}
 	}
@@ -165,8 +165,8 @@ Pathfinding.prototype.findClose = function(item) {
 
 Pathfinding.prototype.findWall = function(item) {
 	for (var i = 0; i < this.manageTiles.layerTwo.length; i++) {
-		if (this.manageTiles.layerTwo[i].position.x == item[0] && 
-			this.manageTiles.layerTwo[i].position.y == item[1]) {
+		if (this.manageTiles.layerTwo[i].tilePosition.x == item[0] && 
+			this.manageTiles.layerTwo[i].tilePosition.y == item[1]) {
 			return true;
 		}
 	};
@@ -175,7 +175,10 @@ Pathfinding.prototype.findWall = function(item) {
 };
 
 Pathfinding.prototype.calcBoundaries = function(value1, value2) {
-	if (value1 >= 0 &&  value2 >= 0 && value1 < this.manageTiles.lengthX && value2 < this.manageTiles.lengthY) {
+	if (value1 >= 0 &&  value2 >= 0 && 
+		value1 < this.manageTiles.lengthX && 
+		value2 < this.manageTiles.lengthY) {
+
 		return true;
 	}
 

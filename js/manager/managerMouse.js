@@ -16,11 +16,14 @@ function ManagerMouse (_eventMouse) {
 		y: 0,
 		width: 0,
 		height: 0
-	}
+	};
+
+	this.lastClick = null;
 }
 
 ManagerMouse.prototype.update = function() {
-	if (global.mouse.rightButton) {
+	if (global.mouse.rightButton && this.lastClick != global.mouse.position) {
+		this.lastClick = global.mouse.position;
 		global.events.emit('click', global.mouse.position);
 	}
 

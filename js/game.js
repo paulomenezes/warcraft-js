@@ -6,18 +6,21 @@ var MapObject;
 var EventMouse;
 var ManagerMouse;
 var ManagerTiles;
+var ManagerUnits;
 var SelectRectangle;
 
-var mapObject;
 var eventMouse;
+
 var managerMouse;
 var managerTiles;
+var managerUnits;
 
 function start () {
 	MapObject = global.Load('./map/mapObject');
 	EventMouse = global.Load('./event/eventMouse');
 	ManagerMouse = global.Load('./manager/managerMouse');
 	ManagerTiles = global.Load('./manager/managerTiles');
+	ManagerUnits = global.Load('./manager/managerUnits');
 	SelectRectangle = global.Load('./common/selectRectangle');
 
 	EventEmitter = require('events').EventEmitter;
@@ -32,18 +35,17 @@ function initialize () {
 	eventMouse = new EventMouse();
 	managerMouse = new ManagerMouse();
 	managerTiles = new ManagerTiles();
-
-	mapObject = new MapObject(managerTiles);
+	managerUnits = new ManagerUnits(managerTiles);
 }
 
 function loadContent () {
-	mapObject.loadContent(Image);
+	managerUnits.loadContent(Image);
 	managerTiles.loadContent(Image);
 }
 
 function update () {
 	managerMouse.update();
-	mapObject.update();
+	managerUnits.update();
 }
 
 function draw () {
@@ -61,7 +63,7 @@ function draw () {
     }*/
 
     managerTiles.draw();
-	mapObject.draw();	
+	managerUnits.draw();
 	managerMouse.draw();
 }
 

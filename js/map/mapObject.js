@@ -1,8 +1,8 @@
 var Sprite = global.Load('./map/sprite');
 var Movement = global.Load('./map/movement');
 
-function MapObject (manageTiles) {
-	this.sprite = new Sprite(4, 6);
+function MapObject (manageTiles, tileX, tileY) {
+	this.sprite = new Sprite(tileX, tileY);
 	this.movement = new Movement(this.sprite, manageTiles);
 	this.selected = false;
 }
@@ -15,9 +15,7 @@ MapObject.prototype.loadContent = function(Image) {
 		self.checkDetection(selectRectangle);
 	});
 
-	var i = 0;
 	global.events.on('click', function (position) {
-		console.log(++i);
 		if (self.selected) {
 			self.movement.move(parseInt(position.x / 32), parseInt(position.y / 32));
 		}

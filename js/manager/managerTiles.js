@@ -6,7 +6,7 @@ function ManagerTiles () {
 	this.collision = [];
 
 	this.lengthX = 700 / 32;
-	this.lengthY = 700 / 32;
+	this.lengthY = 500 / 32;
 
 	for (var i = 0; i < this.lengthX; i++) {
 		for (var j = 0; j < this.lengthY; j++) {
