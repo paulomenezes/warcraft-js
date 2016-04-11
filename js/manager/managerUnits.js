@@ -4,11 +4,13 @@ var MapObject = global.Load('./map/mapObject');
 function ManagerUnits (managerTiles) {
 	var objects = [];
 
-	objects.push(new MapObject(managerTiles, 4, 6));
-	objects.push(new MapObject(managerTiles, 4, 7));
-	objects.push(new MapObject(managerTiles, 4, 8));
-	objects.push(new MapObject(managerTiles, 4, 9));
-
+	for (var i = 6; i < 9; i++) {
+		objects.push(new MapObject(managerTiles, 4, i));
+	};
+	for (var i = 10; i < 14; i++) {
+		objects.push(new MapObject(managerTiles, 10, i));
+	};
+	
 	this.teams = [];
 	this.teams.push(new TeamUnits(objects, 'player', []));
 }

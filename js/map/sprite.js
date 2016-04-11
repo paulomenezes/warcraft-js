@@ -27,6 +27,9 @@ function Sprite (xTilePos, yTilePos) {
 		width: this.width,
 		height: this.height
 	};
+
+	this.frameIndex = 0;
+	this.numberOfFrames = 5;
 }
 
 Sprite.prototype.loadContent = function (Image) {
@@ -52,7 +55,8 @@ Sprite.prototype.move = function (x, y, speed) {
 Sprite.prototype.draw = function () {
 	global.context.drawImage(
 		this.texture, 
-		0, 0, 
+		0, 
+		0, 
 		this.width, this.height, 
 		this.position.x, this.position.y, 
 		this.width, this.height);

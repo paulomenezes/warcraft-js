@@ -31,9 +31,7 @@ Pathfinding.prototype.reset = function() {
 			 this.calcBoundaries(this.position[0] + this.aux[i][0], this.position[1] + this.aux[i][1])) {
 			
 			this.openList.push({
-				parent: {
-					point: this.position
-				},
+				parent: this.position,
 				point: [this.position[0] + this.aux[i][0], this.position[1] + this.aux[i][1]]
 			});
 		}
@@ -45,7 +43,24 @@ Pathfinding.prototype.reset = function() {
 Pathfinding.prototype.setGoal = function(originX, originY, goalX, goalY) {
 	this.position = [originX, originY];
 	this.reset();
-	this.goal = [goalX, goalY];
+
+	var start = false;
+	
+	if (this.findWall([goalX, goalY])) {
+		// If the goal is a wall, find new place in neighbourhood
+		for (var i = 0; i < this.aux.length; i++) {
+			if (!this.findWall([goalX + this.aux[i][0], goalY + this.aux[i][1]])) {
+				this.goal = [goalX + this.aux[i][0], goalY + this.aux[i][1]];
+				start = true;
+				break;
+			}
+		};
+	} else {
+		start = true;
+		this.goal = [goalX, goalY];
+	}
+
+	return start;
 };
 
 Pathfinding.prototype.findPath = function() {
@@ -54,12 +69,12 @@ Pathfinding.prototype.findPath = function() {
 			var parent = null;
 			for (var i = this.closeList.length - 1; i >= 0; i--) {
 				if (!parent) {
-					parent = this.closeList[i].parent.point;
+					parent = this.closeList[i].parent;
 					this.path.push(this.closeList[i].point);
 				} else {
 					if (this.closeList[i].point[0] == parent[0] && this.closeList[i].point[1] == parent[1]) {
-						if (this.closeList[i].parent && this.closeList[i].parent.point) {
-							parent = this.closeList[i].parent.point;
+						if (this.closeList[i].parent) {
+							parent = this.closeList[i].parent;
 							this.path.push(this.closeList[i].point);
 						} else {
 							this.path.push(this.closeList[i].point);
@@ -73,7 +88,7 @@ Pathfinding.prototype.findPath = function() {
 		} else if (this.openList.length > 0) {
 			for (var i = 0; i < this.openList.length; i++) {
 				var v = [this.openList[i].point[0] - this.goal[0], this.openList[i].point[1] - this.goal[1]];
-				var r = [this.openList[i].point[0] - this.openList[i].parent.point[0], this.openList[i].point[1] - this.openList[i].parent.point[1]];
+				var r = [this.openList[i].point[0] - this.openList[i].parent[0], this.openList[i].point[1] - this.openList[i].parent[1]];
 
 				var g = 0;
 
@@ -105,7 +120,7 @@ Pathfinding.prototype.findPath = function() {
 			this.closeList.push(this.openList[index]);
 			this.openList.splice(index, 1);
 
-			var opcoes = [];
+			var options = [];
 			for (var i = 0; i < this.aux.length; i++) {
 				var add = false;
 
@@ -119,17 +134,14 @@ Pathfinding.prototype.findPath = function() {
 				}
 
 				if (add)
-					opcoes.push(this.aux[i]);
+					options.push(this.aux[i]);
 			};
 
-			for (var i = 0; i < opcoes.length; i++) {
-				if (this.calcBoundaries(nextPoint.point[0] + opcoes[i][0], nextPoint.point[1] + opcoes[i][1])) {
+			for (var i = 0; i < options.length; i++) {
+				if (this.calcBoundaries(nextPoint.point[0] + options[i][0], nextPoint.point[1] + options[i][1])) {
 					this.openList.push({
-						parent: {
-							G: nextPoint.G,
-							point: [nextPoint.point[0], nextPoint.point[1]]
-						},
-						point: [nextPoint.point[0] + opcoes[i][0], nextPoint.point[1] + opcoes[i][1]]
+						parent: [nextPoint.point[0], nextPoint.point[1]],
+						point: [nextPoint.point[0] + options[i][0], nextPoint.point[1] + options[i][1]]
 					});
 				}
 			};
@@ -145,7 +157,7 @@ Pathfinding.prototype.findOpen = function(item) {
 			return false;
 		} else {
 			if (this.openList[i].point[0] == item[0] && this.openList[i].point[1] == item[1]) {
-				return [item[0] - this.openList[i].parent.point[0], item[1] - this.openList[i].parent.point[1], i];
+				return [item[0] - this.openList[i].parent[0], item[1] - this.openList[i].parent[1], i];
 			}
 		}
 	};

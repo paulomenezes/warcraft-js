@@ -18,9 +18,8 @@ function Tile (tileX, tileY, textureX, textureY) {
 	};
 }
 
-Tile.prototype.loadContent = function(Image) {
-	this.texture = new Image();
-	this.texture.src = './images/tiles.png';
+Tile.prototype.loadContent = function(texture) {
+	this.texture = texture;
 };
 
 Tile.prototype.draw = function() {

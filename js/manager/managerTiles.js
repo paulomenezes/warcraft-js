@@ -10,7 +10,7 @@ function ManagerTiles () {
 
 	for (var i = 0; i < this.lengthX; i++) {
 		for (var j = 0; j < this.lengthY; j++) {
-			this.layerOne.push(new Tile(i, j, 3, 14));
+			this.layerOne.push(new Tile(i, j, 10, 12));
 		};
 	};
 
@@ -28,11 +28,16 @@ function ManagerTiles () {
 }
 
 ManagerTiles.prototype.loadContent = function(Image) {
+	var texture = new Image();
+	var map = Math.floor(Math.random() * 3 + 1);
+
+	texture.src = './images/miscs/' + (map == 1 ? 'Summer' : map == 2 ? 'Wasteland' : 'Winter') + ' Tiles.png';
+
 	this.layerOne.forEach(function (item) {
-		item.loadContent(Image);
+		item.loadContent(texture);
 	});
 	this.layerTwo.forEach(function (item) {
-		item.loadContent(Image);
+		item.loadContent(texture);
 	});
 };
 

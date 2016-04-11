@@ -1,6 +1,8 @@
 var Sprite = global.Load('./map/sprite');
 var Movement = global.Load('./map/movement');
 
+global.first = true;
+
 function MapObject (manageTiles, tileX, tileY) {
 	this.sprite = new Sprite(tileX, tileY);
 	this.movement = new Movement(this.sprite, manageTiles);
@@ -15,11 +17,24 @@ MapObject.prototype.loadContent = function(Image) {
 		self.checkDetection(selectRectangle);
 	});
 
-	global.events.on('click', function (position) {
+	global.events.on('move', function (position) {
 		if (self.selected) {
 			self.movement.move(parseInt(position.x / 32), parseInt(position.y / 32));
 		}
-	})
+	});
+
+	global.events.on('select', function (position) {
+		if (global.first) {
+			self.checkDetection({
+				x: position.x,
+				y: position.y,
+				width: 1,
+				height: 1
+			});
+		} else {
+			self.selected = false;
+		}
+	});
 };
 
 MapObject.prototype.update = function() {
@@ -36,11 +51,15 @@ MapObject.prototype.draw = function() {
 };
 
 MapObject.prototype.checkDetection = function(rectangle) {
-	if ((this.sprite.rectangle.x + this.sprite.rectangle.width) > rectangle.x &&
-		(this.sprite.rectangle.x + this.sprite.rectangle.width) < rectangle.x + rectangle.width &&
-		(this.sprite.rectangle.y + this.sprite.rectangle.height) > rectangle.y &&
-		(this.sprite.rectangle.y + this.sprite.rectangle.height) < rectangle.y + rectangle.height) {
+	if (this.sprite.rectangle.x > rectangle.x && this.sprite.rectangle.y > rectangle.y &&
+		this.sprite.rectangle.x + this.sprite.rectangle.width < rectangle.x + rectangle.width &&
+		this.sprite.rectangle.y + this.sprite.rectangle.height < rectangle.y + rectangle.height) {
 		this.selected = true;
+	} else if (this.sprite.rectangle.x < rectangle.x && this.sprite.rectangle.y < rectangle.y &&
+		 	   this.sprite.rectangle.x + this.sprite.rectangle.width > rectangle.x + rectangle.width &&
+		 	   this.sprite.rectangle.y + this.sprite.rectangle.height > rectangle.y + rectangle.height) {
+		this.selected = true;
+		global.first = false;
 	} else {
 		this.selected = false;
 	}

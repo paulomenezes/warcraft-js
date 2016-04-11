@@ -24,7 +24,17 @@ function ManagerMouse (_eventMouse) {
 ManagerMouse.prototype.update = function() {
 	if (global.mouse.rightButton && this.lastClick != global.mouse.position) {
 		this.lastClick = global.mouse.position;
-		global.events.emit('click', global.mouse.position);
+		global.events.emit('move', global.mouse.position);
+	}
+
+	if (global.mouse.leftButton && this.lastClick != global.mouse.position && 
+		this.selectRectangle.width == 0 && this.selectRectangle.height == 0) {
+
+		if (this.selectRectangle.width == 0 && this.selectRectangle.height == 0) {
+			global.first = true;
+			this.lastClick = global.mouse.position;
+			global.events.emit('select', global.mouse.position);
+		}
 	}
 
 	if (global.mouse.leftButton && !this.mouseDown) {
@@ -57,6 +67,7 @@ ManagerMouse.prototype.update = function() {
 		this.selectRectangle.height = Math.abs(this.position.y - this.selectCorner.y);
 	} else {
 		if (this.selectRectangle.width > 0 || this.selectRectangle.height > 0) {
+			global.countSelected = 0;
 			global.events.emit('selectRectangle', this.selectRectangle);
 
 			this.selectRectangle = {
