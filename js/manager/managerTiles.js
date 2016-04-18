@@ -5,12 +5,12 @@ function ManagerTiles () {
 	this.layerTwo = [];
 	this.collision = [];
 
-	this.lengthX = 700 / 32;
-	this.lengthY = 500 / 32;
+	this.lengthX = global.window.innerWidth / 32;
+	this.lengthY = global.window.innerHeight / 32;
 
 	for (var i = 0; i < this.lengthX; i++) {
 		for (var j = 0; j < this.lengthY; j++) {
-			this.layerOne.push(new Tile(i, j, 10, 12));
+			this.layerOne.push(new Tile(i, j, 0, 14));
 		};
 	};
 
@@ -18,7 +18,7 @@ function ManagerTiles () {
 		this.layerTwo.push(new Tile(5, i, 2, 1));
 	};
 
-	for (var i = 0; i < 9; i++) {
+	for (var i = 0; i < 13; i++) {
 		this.layerTwo.push(new Tile(8, i + 7, 2, 1));
 	};
 
@@ -29,9 +29,9 @@ function ManagerTiles () {
 
 ManagerTiles.prototype.loadContent = function(Image) {
 	var texture = new Image();
-	var map = Math.floor(Math.random() * 3 + 1);
 
-	texture.src = './images/miscs/' + (map == 1 ? 'Summer' : map == 2 ? 'Wasteland' : 'Winter') + ' Tiles.png';
+	//texture.src = './images/miscs/' + (map == 1 ? 'Summer' : map == 2 ? 'Wasteland' : 'Winter') + ' Tiles.png';
+	texture.src = './images/miscs/Summer Tiles.png';
 
 	this.layerOne.forEach(function (item) {
 		item.loadContent(texture);

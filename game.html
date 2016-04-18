@@ -17,9 +17,13 @@
 		</style>
 	</head>
 	<body>
-		<canvas id="canvas" width="700" height="500"></canvas>
+		<canvas id="canvas"></canvas>
 
 		<script type="text/javascript">
+			var gui = require('nw.gui');
+			//var win = gui.Window.get();
+			//win.maximize();
+
 			global.Load = function (name) {
 				return require('./js/' + name + '.js');
 			}

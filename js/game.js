@@ -14,6 +14,8 @@ var managerTiles;
 var managerUnits;
 
 function start () {
+	global.Load('./common/functions');
+
 	MapObject = global.Load('./map/mapObject');
 	EventMouse = global.Load('./event/eventMouse');
 	ManagerMouse = global.Load('./manager/managerMouse');
@@ -22,9 +24,13 @@ function start () {
 	SelectRectangle = global.Load('./common/selectRectangle');
 
 	EventEmitter = require('events').EventEmitter;
+
+	context.canvas.width = window.innerWidth;
+	context.canvas.height = window.innerHeight;
 }
 
 function initialize () {
+	global.window = window;
 	global.context = context;
 	global.document = document;
 	global.selectRectangle = new SelectRectangle();
