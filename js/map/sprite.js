@@ -18,6 +18,11 @@ function Sprite (xTilePos, yTilePos) {
 		y: yTilePos
 	};
 
+	this.goalPosition = {
+		x: 0,
+		y: 0
+	}
+
 	this.position = {
 		x: this.tilePosition.x * 32,
 		y: this.tilePosition.y * 32
@@ -56,6 +61,13 @@ Sprite.prototype.move = function (x, y, speed) {
 }
 
 Sprite.prototype.draw = function () {
+	if (this.transitionOn) {
+		global.context.beginPath();
+		global.context.moveTo(this.position.x + 16, this.position.y + 16);
+		global.context.lineTo(this.goalPosition.x * 32 + 16, this.goalPosition.y * 32 + 16);
+		global.context.stroke();
+	}
+
 	global.context.drawImage(
 		this.texture, 
 		this.animation.getImagePosition('x'), 

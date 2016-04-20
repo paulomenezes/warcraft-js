@@ -28,13 +28,11 @@ ManagerMouse.prototype.update = function() {
 	}
 
 	if (global.mouse.leftButton && this.lastClick != global.mouse.position && 
-		this.selectRectangle.width == 0 && this.selectRectangle.height == 0) {
+		(this.selectRectangle.width == 0 || this.selectRectangle.height == 0)) {
 
-		if (this.selectRectangle.width == 0 && this.selectRectangle.height == 0) {
-			global.first = true;
-			this.lastClick = global.mouse.position;
-			global.events.emit('select', global.mouse.position);
-		}
+		this.lastClick = global.mouse.position;
+		global.first = true;
+		global.events.emit('select', global.mouse.position);
 	}
 
 	if (global.mouse.leftButton && !this.mouseDown) {

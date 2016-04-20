@@ -30,6 +30,7 @@ Movement.prototype.move = function(xTile, yTile) {
 		};
 
 		this.transitionOn = true;
+		this.sprite.goalPosition = this.wantedTile;
 	}
 };
 
