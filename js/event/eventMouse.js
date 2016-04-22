@@ -9,22 +9,26 @@ function EventMouse () {
 	};
 
 	global.document.onmousedown = function (e) {
-		if (e.button == 0) 
-			global.mouse.leftButton = true;
-		else 
-			global.mouse.rightButton = true;
+		if (e.x > 200) {
+			if (e.button == 0) 
+				global.mouse.leftButton = true;
+			else 
+				global.mouse.rightButton = true;
+		}
 	};
 
 	global.document.onmouseup = function (e) {
-		if (e.button == 0) 
-			global.mouse.leftButton = false;
-		else 
-			global.mouse.rightButton = false
+		if (e.x > 200) {
+			if (e.button == 0) 
+				global.mouse.leftButton = false;
+			else 
+				global.mouse.rightButton = false;
+		}
 	};
 
 	global.document.onmousemove = function (e) {
 		global.mouse.position = {
-			x: e.x,
+			x: e.x - 200,
 			y: e.y
 		};
 	}

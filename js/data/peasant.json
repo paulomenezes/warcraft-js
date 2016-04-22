@@ -1,0 +1,227 @@
+{
+	"name": "Peasant",
+	"race": "Human",
+	"faction": "Alliance",
+	"statistics": {
+		"hitPoints": 30,
+		"armor": 0,
+		"sight": 4,
+		"speed": 10
+	},
+	"production": {
+		"gold": 400,
+		"food": 1,
+		"place": "townHall",
+		"buildTime": 45
+	},
+	"combat": {
+		"damage": {
+			"min": 1,
+			"max": 4
+		},
+		"range": 1
+	},
+	"images": {
+		"class": "peasant",
+		"icon": {
+			"x": 0,
+			"y": 0
+		},
+		"sprites": "./images/humans/Peasant/Peasant_walking.png"
+	},
+	"size": {
+		"width": 32,
+		"height": 32
+	},
+	"commands": ["builder"],
+	"builder": ["townHall", "chickenFarm", "barracks", "elvenLumberMill", "blackSmith"],
+	"animations": {
+		"first": "up",
+		"up": 	 [5, 11, 17, 23, 29],
+		"down":  [6, 12, 18, 24, 30],
+		"left":  [1, 8, 14, 19, 25],
+		"right": [2, 9, 15, 20, 26]
+	},
+	"sprites": [{  
+	      "name":"sprite1",
+	      "x":91,
+	      "y":4,
+	      "width":14,
+	      "height":31
+	   }, {  
+	      "name":"sprite2",
+	      "x":125,
+	      "y":4,
+	      "width":14,
+	      "height":31
+	   }, {  
+	      "name":"sprite3",
+	      "x":154,
+	      "y":4,
+	      "width":22,
+	      "height":31
+	   }, {  
+	      "name":"sprite4",
+	      "x":56,
+	      "y":6,
+	      "width":22,
+	      "height":26
+	   }, {  
+	      "name":"sprite5",
+	      "x":16,
+	      "y":8,
+	      "width":26,
+	      "height":23
+	   }, {  
+	      "name":"sprite6",
+	      "x":193,
+	      "y":8,
+	      "width":25,
+	      "height":26
+	   }, {  
+	      "name":"sprite7",
+	      "x":155,
+	      "y":41,
+	      "width":20,
+	      "height":27
+	   }, {  
+	      "name":"sprite8",
+	      "x":87,
+	      "y":42,
+	      "width":24,
+	      "height":30
+	   }, {  
+	      "name":"sprite9",
+	      "x":119,
+	      "y":42,
+	      "width":24,
+	      "height":30
+	   }, {  
+	      "name":"sprite10",
+	      "x":55,
+	      "y":44,
+	      "width":26,
+	      "height":30
+	   }, {  
+	      "name":"sprite11",
+	      "x":18,
+	      "y":46,
+	      "width":24,
+	      "height":28
+	   }, {  
+	      "name":"sprite12",
+	      "x":195,
+	      "y":46,
+	      "width":24,
+	      "height":26
+	   }, {  
+	      "name":"sprite13",
+	      "x":157,
+	      "y":81,
+	      "width":19,
+	      "height":28
+	   }, {  
+	      "name":"sprite14",
+	      "x":90,
+	      "y":82,
+	      "width":16,
+	      "height":31
+	   }, {  
+	      "name":"sprite15",
+	      "x":124,
+	      "y":82,
+	      "width":16,
+	      "height":31
+	   }, {  
+	      "name":"sprite16",
+	      "x":56,
+	      "y":84,
+	      "width":24,
+	      "height":29
+	   }, {  
+	      "name":"sprite17",
+	      "x":17,
+	      "y":86,
+	      "width":25,
+	      "height":26
+	   }, {  
+	      "name":"sprite18",
+	      "x":194,
+	      "y":86,
+	      "width":25,
+	      "height":27
+	   }, {  
+	      "name":"sprite19",
+	      "x":88,
+	      "y":118,
+	      "width":23,
+	      "height":30
+	   }, {  
+	      "name":"sprite20",
+	      "x":119,
+	      "y":118,
+	      "width":23,
+	      "height":30
+	   }, {  
+	      "name":"sprite21",
+	      "x":56,
+	      "y":119,
+	      "width":23,
+	      "height":29
+	   }, {  
+	      "name":"sprite22",
+	      "x":153,
+	      "y":120,
+	      "width":26,
+	      "height":29
+	   }, {  
+	      "name":"sprite23",
+	      "x":19,
+	      "y":122,
+	      "width":23,
+	      "height":30
+	   }, {  
+	      "name":"sprite24",
+	      "x":195,
+	      "y":122,
+	      "width":23,
+	      "height":26
+	   }, {  
+	      "name":"sprite25",
+	      "x":87,
+	      "y":155,
+	      "width":20,
+	      "height":30
+	   }, {  
+	      "name":"sprite26",
+	      "x":123,
+	      "y":155,
+	      "width":20,
+	      "height":30
+	   }, {  
+	      "name":"sprite27",
+	      "x":57,
+	      "y":156,
+	      "width":21,
+	      "height":28
+	   }, {  
+	      "name":"sprite28",
+	      "x":153,
+	      "y":157,
+	      "width":26,
+	      "height":28
+	   }, {  
+	      "name":"sprite29",
+	      "x":18,
+	      "y":159,
+	      "width":24,
+	      "height":27
+	   }, {  
+	      "name":"sprite30",
+	      "x":194,
+	      "y":159,
+	      "width":24,
+	      "height":27
+	   }
+	]
+}

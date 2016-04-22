@@ -5,8 +5,8 @@ function ManagerTiles () {
 	this.layerTwo = [];
 	this.collision = [];
 
-	this.lengthX = global.window.innerWidth / 32;
-	this.lengthY = global.window.innerHeight / 32;
+	this.lengthX = 960 / 32;
+	this.lengthY = 608 / 32;
 
 	for (var i = 0; i < this.lengthX; i++) {
 		for (var j = 0; j < this.lengthY; j++) {
@@ -18,7 +18,7 @@ function ManagerTiles () {
 		this.layerTwo.push(new Tile(5, i, 2, 1));
 	};
 
-	for (var i = 0; i < 13; i++) {
+	for (var i = 0; i < 12; i++) {
 		this.layerTwo.push(new Tile(8, i + 7, 2, 1));
 	};
 

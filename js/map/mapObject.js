@@ -3,10 +3,20 @@ var Movement = global.Load('./map/movement');
 
 global.first = true;
 
-function MapObject (manageTiles, tileX, tileY) {
-	this.sprite = new Sprite(tileX, tileY);
-	this.movement = new Movement(this.sprite, manageTiles);
+function MapObject (manageTiles, tileX, tileY, data, events) {
+	var self = this;
+
+	this.sprite = new Sprite(tileX, tileY, data);
 	this.selected = false;
+	this.events = events;
+
+	this.building = false;
+
+	this.movement = new Movement(this.sprite, manageTiles, function () {
+		self.selected = false;
+		self.building = true;
+		self.events(this.selected);
+	});
 }
 
 MapObject.prototype.loadContent = function(Image) {
@@ -17,14 +27,14 @@ MapObject.prototype.loadContent = function(Image) {
 		self.checkDetection(selectRectangle);
 	});
 
-	global.events.on('move', function (position) {
+	global.events.on('move', function (position, action) {
 		if (self.selected) {
-			self.movement.move(parseInt(position.x / 32), parseInt(position.y / 32));
+			self.movement.move(parseInt(position.x / 32), parseInt(position.y / 32), { data: action, position: position });
 		}
 	});
 
 	global.events.on('select', function (position) {
-		if (global.first) {
+		if (!self.movement.building && global.first) {
 			self.checkDetection({
 				x: position.x,
 				y: position.y,
@@ -33,6 +43,7 @@ MapObject.prototype.loadContent = function(Image) {
 			});
 		} else {
 			self.selected = false;
+			self.events(self.selected);
 		}
 	});
 };
@@ -43,26 +54,34 @@ MapObject.prototype.update = function() {
 };
 
 MapObject.prototype.draw = function() {
-	this.sprite.draw();
+	if (!this.building) {
+		this.sprite.draw();
 
-	if (this.selected) {
-		global.selectRectangle.draw(this.sprite.rectangle);
+		if (this.selected) {
+			global.selectRectangle.draw(this.sprite.rectangle);
+		}
 	}
 };
 
 MapObject.prototype.checkDetection = function(rectangle) {
-	if (this.sprite.rectangle.x > rectangle.x && this.sprite.rectangle.y > rectangle.y &&
-		this.sprite.rectangle.x + this.sprite.rectangle.width < rectangle.x + rectangle.width &&
-		this.sprite.rectangle.y + this.sprite.rectangle.height < rectangle.y + rectangle.height) {
-		this.selected = true;
-	} else if (this.sprite.rectangle.x < rectangle.x && this.sprite.rectangle.y < rectangle.y &&
-		 	   this.sprite.rectangle.x + this.sprite.rectangle.width > rectangle.x + rectangle.width &&
-		 	   this.sprite.rectangle.y + this.sprite.rectangle.height > rectangle.y + rectangle.height) {
-		this.selected = true;
-		global.first = false;
+	if (!this.building) {
+		if (this.sprite.rectangle.x > rectangle.x && this.sprite.rectangle.y > rectangle.y &&
+			this.sprite.rectangle.x + this.sprite.rectangle.width < rectangle.x + rectangle.width &&
+			this.sprite.rectangle.y + this.sprite.rectangle.height < rectangle.y + rectangle.height) {
+			this.selected = true;
+		} else if (this.sprite.rectangle.x < rectangle.x && this.sprite.rectangle.y < rectangle.y &&
+			 	   this.sprite.rectangle.x + this.sprite.rectangle.width > rectangle.x + rectangle.width &&
+			 	   this.sprite.rectangle.y + this.sprite.rectangle.height > rectangle.y + rectangle.height) {
+			this.selected = true;
+			global.first = false;
+		} else {
+			this.selected = false;
+		}
 	} else {
 		this.selected = false;
 	}
+
+	this.events(this.selected);
 };
 
 module.exports = MapObject;

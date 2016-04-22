@@ -1,34 +1,30 @@
-var TeamUnits = global.Load('./common/teamUnits');
-var MapObject = global.Load('./map/mapObject');
+var Unit = global.Load('./models/units/unit');
 
 function ManagerUnits (managerTiles) {
-	var objects = [];
+	this.units = [];
 
 	for (var i = 6; i < 9; i++) {
-		objects.push(new MapObject(managerTiles, 4, i));
+		this.units.push(new Unit('peasant', managerTiles, 4, i));
 	};
 	for (var i = 10; i < 14; i++) {
-		objects.push(new MapObject(managerTiles, 10, i));
+		this.units.push(new Unit('peasant', managerTiles, 10, i));
 	};
-	
-	this.teams = [];
-	this.teams.push(new TeamUnits(objects, 'player', []));
 }
 
 ManagerUnits.prototype.loadContent = function(Image) {
-	this.teams.forEach(function (item) {
+	this.units.forEach(function (item) {
 		item.loadContent(Image);
 	});
 };
 
 ManagerUnits.prototype.update = function() {
-	this.teams.forEach(function (item) {
+	this.units.forEach(function (item) {
 		item.update();
 	});
 };
 
 ManagerUnits.prototype.draw = function() {
-	this.teams.forEach(function (item) {
+	this.units.forEach(function (item) {
 		item.draw();
 	});
 };

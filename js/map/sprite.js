@@ -1,8 +1,8 @@
 var Animation = global.Load('./common/animation');
 
-function Sprite (xTilePos, yTilePos) {
-	this.width = 32;
-	this.height = 32;
+function Sprite (xTilePos, yTilePos, data) {
+	this.width = data.size.width;
+	this.height = data.size.height;
 
 	this.transitionOn = false;
 
@@ -35,12 +35,13 @@ function Sprite (xTilePos, yTilePos) {
 		height: this.height
 	};
 
-	this.animation = new Animation('../../images/humans/Peasant/Peasant_walking.json');
+	this.data = data;
+	this.animation = new Animation(data);
 }
 
 Sprite.prototype.loadContent = function (Image) {
 	this.texture = new Image();
-	this.texture.src = './images/humans/Peasant/Peasant_walking.png';
+	this.texture.src = this.data.images.sprites;
 };
 
 Sprite.prototype.update = function () {

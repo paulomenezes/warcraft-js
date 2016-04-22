@@ -1,18 +1,13 @@
 function Animation (asset) {
-	this.width = 32;
-	this.height = 32;
+	this.width = asset.size.width;
+	this.height = asset.size.height;
 
-	this.animations = {
-		"up": 	 [5, 11, 17, 23, 29],
-		"down":  [6, 12, 18, 24, 30],
-		"left":  [1, 8, 14, 19, 25],
-		"right": [2, 9, 15, 20, 26],
-	};
+	this.animations = asset.animations;
 
-	this.animation = require(asset);
+	this.animation = asset.sprites;
 	this.animationIndex = 0;
 	this.animationElapsed = 0;
-	this.animationCurrent = 'up';
+	this.animationCurrent = this.animations.first;
 }
 
 Animation.prototype.update = function(transitionOn) {

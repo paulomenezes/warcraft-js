@@ -1,0 +1,34 @@
+{
+	"name": "Town Hall",
+	"statistics": {
+		"hitPoints": 1200,
+		"cost": {
+			"gold": 1200,
+			"wood": 800
+		}
+	},
+	"size": {
+		"width": 128,
+		"height": 128
+	},
+	"images": {
+		"sprites": "./images/humans/Human Buildings (Summer).png"
+	},
+	"animations": {
+		"first": "builder",
+		"builder": 	 [1, 2]
+	},
+	"sprites": [
+		{
+			"x": 270,
+			"y": 154,
+			"width": 111,
+			"height": 95
+		}, {
+			"x": 270,
+			"y": 17,
+			"width": 119,
+			"height": 104
+		}
+	]
+}

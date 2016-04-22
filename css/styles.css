@@ -1,0 +1,129 @@
+* {
+	padding: 0;
+	margin: 0;
+
+	font-family: 'Arial';
+}
+
+ul, li { list-style: none; }
+
+html, body { height: 100%; }
+
+canvas {
+	background: #EEE;
+	display: block;
+
+	margin-left: 200px;
+}
+
+.ui {
+	float: left;
+	width: 200px;
+
+	height: 100%;
+
+	background-color: #CCC;
+}
+
+.ui .map {
+	width: 180px;
+	height: 180px;
+
+	margin: 10px;
+
+	background-color: #DDD;
+}
+
+.ui .data ul {
+	overflow: hidden;
+}
+
+.ui .data ul li {
+	float: left;
+	width: calc(50% - 10px);
+
+	padding-left: 10px;
+	font-size: 12px;
+}
+
+.ui .info {
+	margin: 10px;
+	background-color: #DDD;
+}
+
+.ui .info .first {
+	overflow: hidden;
+}
+
+.ui .info .first .icon {
+	float: left;
+
+	width: 46px;
+}
+
+.ui .info .first .icon .image {
+	margin-bottom: 0 !important;
+}
+
+.ui .info .first .icon .progress {
+	width: 100%;
+	clear: both;
+}
+
+.ui .info .first .icon .progress .infill {
+	background-color: #00FF00;
+	width: 50%;
+
+	height: 5px;
+}
+
+.ui .info .first .icon .progress .value {
+	text-align: center;
+	font-size: 10px;
+}
+
+.ui .info .first .texts {
+	font-size: 14px;
+
+	text-align: center;
+}
+
+.ui .info .first .texts .level {
+	font-size: 12px;
+}
+
+.ui .info .second {
+	font-size: 12px;
+	margin: 10px;
+}
+
+.ui .info .second li {
+	padding-bottom: 10px;
+}
+
+.ui .info .multiple {
+	overflow: hidden;
+	padding: 5px;
+}
+
+.portrait {
+	width: 46px;
+	height: 38px;
+
+	background-image: url('../images/miscs/Icons.png');
+
+	float: left;
+
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.portrait.peasant { background-position: 0 0; }
+.portrait.peon { background-position: -49px 0; }
+.portrait.builder { background-position: 144px -328px; }
+
+.portrait.townHall { background-position: 0 -164px; }
+.portrait.chickenFarm { background-position: 96px -123px; }
+.portrait.barracks { background-position: -96px -164px; }
+.portrait.elvenLumberMill { background-position: -196px -164px; }
+.portrait.blackSmith { background-position: -294px -164px; }

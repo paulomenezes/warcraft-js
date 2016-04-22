@@ -1,25 +1,31 @@
 var Pathfinding = global.Load('./common/pathfinding');
 
-function Movement (_sprite, manageTiles) {
+var action = null;
+
+function Movement (_sprite, manageTiles, callback) {
 	this.sprite = _sprite;
 	this.pathfinding = new Pathfinding(this.sprite.tilePosition.x, this.sprite.tilePosition.y, manageTiles);
 
-	this.speed = 2;
+	this.speed = 1;
 	this.transitionOn = false;
 	this.wantedTile = {
 		x: 0,
 		y: 0
 	};
 
+	this.callback = callback;
+
 	this.path = [];
 }
 
-Movement.prototype.move = function(xTile, yTile) {
+Movement.prototype.move = function(xTile, yTile, _action) {
 	if (this.sprite.tilePosition.x == xTile && this.sprite.tilePosition.y == yTile) 
 		return;
 
 	this.pathfinding.setGoal(this.sprite.tilePosition.x, this.sprite.tilePosition.y, xTile, yTile);
 	this.path = this.pathfinding.findPath();
+
+	action = _action;
 	
 	if (this.path) {
 		this.path = this.path.reverse();
@@ -63,6 +69,12 @@ Movement.prototype.updateTransition = function() {
 		this.path.splice(0, 1);
 	} else {
 		this.transitionOn = false;
+
+		if (action) {
+			global.events.emit('builder', action.data, action.position);
+			this.building = true;
+			this.callback();
+		}
 	}
 }
 

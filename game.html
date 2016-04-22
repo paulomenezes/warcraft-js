@@ -2,22 +2,46 @@
 <html>
 	<head>
 		<title>Game</title>
-		<style type="text/css">
-			* {
-				padding: 0;
-				margin: 0;
-			}
-
-			canvas {
-				background: #EEE;
-				display: block;
-				widows: 100%;
-				height: 100%;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
 	</head>
 	<body>
-		<canvas id="canvas"></canvas>
+		<div class="ui">
+			<div class="map"></div>
+			<div class="data">
+				<ul>
+					<li>Gold: 0</li>
+					<li>Wood: 0</li>
+					<li>Oil: 0</li>
+					<li>Farm: 0</li>
+				</ul>
+			</div>
+			<div class="info">
+				<div class="individual">
+					<div class="first">
+						<div class="icon">
+							<div class="image portrait"></div>
+							<div class="progress">
+								<div class="infill"></div>
+								<div class="value"></div>
+							</div>
+						</div>
+						<div class="texts">
+							<div class="name"></div>
+						</div>
+					</div>
+					<div class="second">
+						<ul></ul>
+					</div>
+				</div>
+				<div class="multiple">
+					
+				</div>
+
+				<div class="options"></div>
+			</div>
+		</div>
+
+		<canvas id="canvas" width="960" height="608"></canvas>
 
 		<script type="text/javascript">
 			var gui = require('nw.gui');
