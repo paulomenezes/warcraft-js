@@ -1,7 +1,6 @@
 import Sprite from '../util/Sprite';
 import Vector from '../util/Vector';
 import Graphics from '../Graphics';
-import Keyboard from '../Keyboard';
 
 import UnitData from '../data/UnitData';
 import Animation from '../util/Animation';

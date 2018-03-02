@@ -1,5 +1,6 @@
 import Game from './Game';
 import Vector from './util/Vector';
+import Rectangle from './util/Rectangle';
 
 export default class Graphics {
   canvas: HTMLCanvasElement;
@@ -11,7 +12,7 @@ export default class Graphics {
   }
 
   clear(): void {
-    this.context.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   drawImage(texture: HTMLImageElement, position: Vector) {
@@ -20,5 +21,10 @@ export default class Graphics {
 
   drawImageXY(texture: HTMLImageElement, x: number, y: number) {
     this.context.drawImage(texture, x, y);
+  }
+
+  drawRectangle(rectangle: Rectangle) {
+    this.context.strokeStyle = '#000';
+    this.context.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
   }
 }
