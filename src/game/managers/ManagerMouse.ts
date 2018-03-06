@@ -8,6 +8,7 @@ export default class ManagerMouse {
   public static rightButton: boolean = false;
 
   private selectedArea: Rectangle = null;
+  private initialPosition: Vector = null;
 
   constructor() {
     document.addEventListener('mousemove', this.mouseMove.bind(this));
@@ -19,12 +20,24 @@ export default class ManagerMouse {
     ManagerMouse.position = new Vector(event.x, event.y);
 
     if (this.selectedArea) {
-      if (ManagerMouse.position.getX() >= this.selectedArea.x && ManagerMouse.position.getY() >= this.selectedArea.y) {
+      if (ManagerMouse.position.getX() >= this.initialPosition.getX() && ManagerMouse.position.getY() >= this.initialPosition.getY()) {
         this.selectedArea.width = Math.abs(this.selectedArea.x - ManagerMouse.position.getX());
         this.selectedArea.height = Math.abs(this.selectedArea.y - ManagerMouse.position.getY());
-      } else if (ManagerMouse.position.getX() >= this.selectedArea.x && ManagerMouse.position.getY() < this.selectedArea.y) {
-      } else if (ManagerMouse.position.getX() < this.selectedArea.x && ManagerMouse.position.getY() >= this.selectedArea.y) {
-      } else if (ManagerMouse.position.getX() < this.selectedArea.x && ManagerMouse.position.getY() < this.selectedArea.y) {
+      } else if (ManagerMouse.position.getX() >= this.initialPosition.getX() && ManagerMouse.position.getY() < this.initialPosition.getY()) {
+        const width = Math.abs(this.selectedArea.x - ManagerMouse.position.getX());
+        const height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
+
+        this.selectedArea = new Rectangle(this.initialPosition.getX(), ManagerMouse.position.getY(), width, height);
+      } else if (ManagerMouse.position.getX() < this.initialPosition.getX() && ManagerMouse.position.getY() >= this.initialPosition.getY()) {
+        const width = Math.abs(this.initialPosition.getX() - ManagerMouse.position.getX());
+        const height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
+
+        this.selectedArea = new Rectangle(this.initialPosition.getX() - width, this.initialPosition.getY(), width, height);
+      } else if (ManagerMouse.position.getX() < this.initialPosition.getX() && ManagerMouse.position.getY() < this.initialPosition.getY()) {
+        const width = Math.abs(this.initialPosition.getX() - ManagerMouse.position.getX());
+        const height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
+
+        this.selectedArea = new Rectangle(ManagerMouse.position.getX(), ManagerMouse.position.getY(), width, height);
       }
     }
   }
@@ -34,6 +47,7 @@ export default class ManagerMouse {
     ManagerMouse.rightButton = event.button === 1;
 
     this.selectedArea = new Rectangle(ManagerMouse.position.getX(), ManagerMouse.position.getY(), 1, 1);
+    this.initialPosition = new Vector(ManagerMouse.position.getX(), ManagerMouse.position.getY());
   }
 
   mouseUp(event: MouseEvent) {
@@ -41,6 +55,7 @@ export default class ManagerMouse {
     ManagerMouse.rightButton = event.button !== 1;
 
     this.selectedArea = null;
+    this.initialPosition = null;
   }
 
   draw(graphics: Graphics) {
