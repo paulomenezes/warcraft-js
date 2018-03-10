@@ -6,7 +6,7 @@
     "hitPoints": 30,
     "armor": 0,
     "sight": 4,
-    "speed": 10
+    "speed": 3
   },
   "production": {
     "gold": 400,

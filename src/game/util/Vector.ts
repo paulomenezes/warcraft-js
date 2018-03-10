@@ -1,26 +1,10 @@
 export default class Vector {
-  private x: number;
-  private y: number;
+  x: number;
+  y: number;
 
   constructor(x?: number, y?: number) {
     this.x = x ? x : 0;
     this.y = y ? y : x ? x : 0;
-  }
-
-  public getX(): number {
-    return this.x;
-  }
-
-  public getY(): number {
-    return this.y;
-  }
-
-  public setX(x: number) {
-    this.x = x;
-  }
-
-  public setY(y: number) {
-    this.y = y;
   }
 
   public addX(value: number) {
@@ -34,5 +18,9 @@ export default class Vector {
   public addXY(value: number) {
     this.x += value;
     this.y += value;
+  }
+
+  public closeTo(position: Vector): boolean {
+    return Math.abs(this.x - position.x) <= 1 && Math.abs(this.y - position.y) <= 1;
   }
 }

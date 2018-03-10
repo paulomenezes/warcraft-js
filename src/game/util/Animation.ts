@@ -10,9 +10,7 @@ export default class Animation {
   width: number;
   height: number;
 
-  constructor(resource: string) {
-    const data: UnitData.Unit = require(resource) as UnitData.Unit;
-
+  constructor(data: UnitData.Unit) {
     this.texture = new Image();
     this.texture.src = data.images.sprites;
 
@@ -35,8 +33,8 @@ export default class Animation {
       this.rectangle.y,
       this.rectangle.width,
       this.rectangle.height,
-      position.getX(),
-      position.getY(),
+      position.x,
+      position.y,
       this.rectangle.width,
       this.rectangle.height
     );

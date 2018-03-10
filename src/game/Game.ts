@@ -28,6 +28,7 @@ export default class Game {
   }
 
   private update(): void {
+    this.managerMouse.update();
     this.unit.update();
   }
 
