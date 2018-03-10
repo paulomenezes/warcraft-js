@@ -20,25 +20,25 @@ export default class ManagerMouse {
     ManagerMouse.position = new Vector(event.x, event.y);
 
     if (this.selectedArea) {
+      let width = Math.abs(this.initialPosition.getX() - ManagerMouse.position.getX());
+      let height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
+      let x = this.initialPosition.getX();
+      let y = this.initialPosition.getY();
+
       if (ManagerMouse.position.getX() >= this.initialPosition.getX() && ManagerMouse.position.getY() >= this.initialPosition.getY()) {
-        this.selectedArea.width = Math.abs(this.selectedArea.x - ManagerMouse.position.getX());
-        this.selectedArea.height = Math.abs(this.selectedArea.y - ManagerMouse.position.getY());
+        width = Math.abs(this.selectedArea.x - ManagerMouse.position.getX());
+        height = Math.abs(this.selectedArea.y - ManagerMouse.position.getY());
       } else if (ManagerMouse.position.getX() >= this.initialPosition.getX() && ManagerMouse.position.getY() < this.initialPosition.getY()) {
-        const width = Math.abs(this.selectedArea.x - ManagerMouse.position.getX());
-        const height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
-
-        this.selectedArea = new Rectangle(this.initialPosition.getX(), ManagerMouse.position.getY(), width, height);
+        width = Math.abs(this.selectedArea.x - ManagerMouse.position.getX());
+        y = ManagerMouse.position.getY();
       } else if (ManagerMouse.position.getX() < this.initialPosition.getX() && ManagerMouse.position.getY() >= this.initialPosition.getY()) {
-        const width = Math.abs(this.initialPosition.getX() - ManagerMouse.position.getX());
-        const height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
-
-        this.selectedArea = new Rectangle(this.initialPosition.getX() - width, this.initialPosition.getY(), width, height);
+        x = this.initialPosition.getX() - width;
       } else if (ManagerMouse.position.getX() < this.initialPosition.getX() && ManagerMouse.position.getY() < this.initialPosition.getY()) {
-        const width = Math.abs(this.initialPosition.getX() - ManagerMouse.position.getX());
-        const height = Math.abs(this.initialPosition.getY() - ManagerMouse.position.getY());
-
-        this.selectedArea = new Rectangle(ManagerMouse.position.getX(), ManagerMouse.position.getY(), width, height);
+        x = ManagerMouse.position.getX();
+        y = ManagerMouse.position.getY();
       }
+
+      this.selectedArea = new Rectangle(x, y, width, height);
     }
   }
 
