@@ -1,14 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    },
-    "target": "es5"
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types/**/*", "types/parcel.d.ts"],
+    "downlevelIteration": true
   },
-  "include": ["src/**/*"]
+  "include": ["types/parcel.d.ts"]
 }

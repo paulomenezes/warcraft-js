@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warcraft</title>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Warcraft 2</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
 
-  <style>
-    html,
-    body,
-    canvas {
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-</head>
+        background-color: #eee;
+      }
 
-<body>
-  <canvas id="canvas" width="1280" height="800"></canvas>
-</body>
+      canvas {
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="1888" height="1088"></canvas>
 
-<script>
-  require('./dist/renderer.js')
-</script>
-
+    <script src="src/bootstrap.ts"></script>
+  </body>
 </html>
