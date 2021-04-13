@@ -1,0 +1,24 @@
+{
+  "gold-mine": {
+    "normal": {
+      "width": 96,
+      "height": 89,
+      "frames": [
+        {
+          "x": 26,
+          "y": 661
+        }
+      ]
+    },
+    "work": {
+      "width": 99,
+      "height": 89,
+      "frames": [
+        {
+          "x": 26,
+          "y": 757
+        }
+      ]
+    }
+  }
+}

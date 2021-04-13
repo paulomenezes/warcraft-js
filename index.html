@@ -15,13 +15,21 @@
         background-color: #eee;
       }
 
+      .container {
+        position: relative;
+      }
+
       canvas {
-        background-color: #fff;
+        position: absolute;
+        top: 0;
       }
     </style>
   </head>
   <body>
-    <canvas id="canvas" width="1888" height="1088"></canvas>
+    <div class="container">
+      <canvas id="map" width="1888" height="1088"></canvas>
+      <canvas id="canvas" width="1888" height="1088"></canvas>
+    </div>
 
     <script src="src/bootstrap.ts"></script>
   </body>

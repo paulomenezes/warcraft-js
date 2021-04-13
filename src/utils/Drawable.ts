@@ -31,18 +31,29 @@ export class Drawable {
     Game.context.stroke();
   }
 
-  protected drawImage(image: HTMLImageElement, position: Vector, sx: number, sy: number, width: number, height: number, flipped = false): void {
-    Game.context.save();
+  protected drawImage(
+    image: HTMLImageElement,
+    position: Vector,
+    sx: number,
+    sy: number,
+    width: number,
+    height: number,
+    flipped = false,
+    mapCanvas = false
+  ): void {
+    const context = mapCanvas ? Game.mapContext : Game.context;
 
-    Game.context.translate(position.x + width / 2, position.y + height / 2);
+    context.save();
+
+    context.translate(position.x + width / 2, position.y + height / 2);
 
     if (flipped) {
-      Game.context.scale(-1, 1);
+      context.scale(-1, 1);
     }
 
-    Game.context.drawImage(image, sx, sy, width, height, -width / 2, -height / 2, width, height);
+    context.drawImage(image, sx, sy, width, height, -width / 2, -height / 2, width, height);
 
-    Game.context.restore();
+    context.restore();
   }
 
   protected clear(width: number, height: number) {

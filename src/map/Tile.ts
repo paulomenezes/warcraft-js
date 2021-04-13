@@ -47,7 +47,9 @@ export class Tile extends Drawable {
       this.textureX * (Tile.TILE_SIZE + 1),
       this.textureY * (Tile.TILE_SIZE + 1),
       Tile.TILE_SIZE,
-      Tile.TILE_SIZE
+      Tile.TILE_SIZE,
+      false,
+      true
     );
   }
 }

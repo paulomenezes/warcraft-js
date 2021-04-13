@@ -26,7 +26,7 @@ export class Animation extends Drawable {
 
     this.frame++;
 
-    if (this.frame > 5 * Game.delta) {
+    if (this.frame > 200 * Game.delta) {
       this.animate++;
       this.frame = 0;
     }
