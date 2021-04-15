@@ -15,6 +15,10 @@ export class Vector {
     return Math.sqrt(Math.pow(this.x - compare.x, 2) + Math.pow(this.y - compare.y, 2));
   }
 
+  public manhattanDistance(compare: Vector): number {
+    return Math.abs(this.x - compare.x) + Math.abs(this.y - compare.y);
+  }
+
   public move(x: number, y: number): void {
     this.x += x;
     this.y += y;

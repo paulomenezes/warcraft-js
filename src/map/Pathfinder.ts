@@ -86,7 +86,7 @@ export class Pathfinder extends Drawable {
 
         if (!managerMap.isBlocked(nextPosition.x, nextPosition.y)) {
           const g = x === 0 || y === 0 ? 10 : 14;
-          const h = nextPosition.distance(end);
+          const h = nextPosition.manhattanDistance(end);
           const f = g + h;
 
           if (this.openList.has(nextKey)) {
