@@ -21,7 +21,6 @@ export class Node {
 
 export class Pathfinder extends Drawable {
   public isMoving: boolean = false;
-  private destination: Vector | undefined;
 
   private neighbours: number[][] = [
     [-1, -1],
@@ -39,7 +38,6 @@ export class Pathfinder extends Drawable {
 
   public start(currentPosition: Vector, destination: Vector, managerMap: ManagerMap): Node[] | undefined {
     this.isMoving = true;
-    this.destination = destination;
 
     const start = new Vector(currentPosition.x / 32, currentPosition.y / 32);
     const end = new Vector(destination.x / 32, destination.y / 32);
@@ -51,7 +49,7 @@ export class Pathfinder extends Drawable {
 
     this.openList.set(startNode.key, startNode);
 
-    if (managerMap.water.has(`${end.x}-${end.y}`)) {
+    if (managerMap.isBlocked(end.x, end.y)) {
       this.isMoving = false;
 
       return undefined;
@@ -86,7 +84,7 @@ export class Pathfinder extends Drawable {
           continue;
         }
 
-        if (!managerMap.water.has(nextKey)) {
+        if (!managerMap.isBlocked(nextPosition.x, nextPosition.y)) {
           const g = x === 0 || y === 0 ? 10 : 14;
           const h = nextPosition.distance(end);
           const f = g + h;
@@ -109,12 +107,6 @@ export class Pathfinder extends Drawable {
           }
         }
       }
-
-      // console.log(this.openList.length, current.position, current.f);
-
-      // if (Object.keys(this.openList).length > 20) {
-      //   break;
-      // }
     }
 
     this.isMoving = false;

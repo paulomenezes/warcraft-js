@@ -2,7 +2,6 @@ import { ManagerMouse } from '../managers/ManagerMouse';
 import { ImageUtils } from '../utils/ImageUtils';
 import { Rectangle } from '../utils/Rectangle';
 import { Vector } from '../utils/Vector';
-import { ManagerMap } from '../managers/ManagerMap';
 import { Drawable } from '../utils/Drawable';
 import frames from '../../data/buildings/gold-mine.json';
 
@@ -14,7 +13,7 @@ export class Building extends Drawable {
 
   public isSelected = false;
 
-  public async setup(x: number, y: number, managerMap: ManagerMap): Promise<void> {
+  public async setup(x: number, y: number): Promise<void> {
     this.image = await ImageUtils.load('data/buildings/buildings.png');
 
     this.position = new Vector(x, y);

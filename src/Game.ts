@@ -40,7 +40,7 @@ export class Game extends Drawable {
     this.managerUnits = new ManagerUnits(this.width, this.height);
     await this.managerUnits.setup(this.managerMap);
 
-    this.managerBuildings = new ManagerBuildings(this.width, this.height);
+    this.managerBuildings = new ManagerBuildings();
     await this.managerBuildings.setup(this.managerMap);
 
     this.lastTime = this.getTimestamp();
@@ -59,11 +59,11 @@ export class Game extends Drawable {
 
     this.clear(this.width, this.height);
 
-    this.managerUnits.update();
-    this.managerUnits.draw();
-
     this.managerBuildings.update();
     this.managerBuildings.draw();
+
+    this.managerUnits.update();
+    this.managerUnits.draw();
 
     this.managerMouse.draw();
 

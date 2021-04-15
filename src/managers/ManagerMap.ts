@@ -3,8 +3,8 @@ import { Tile } from '../map/Tile';
 import { TileType } from '../map/TileType';
 import { Drawable } from '../utils/Drawable';
 import { ImageUtils } from '../utils/ImageUtils';
-import { Rectangle } from '../utils/Rectangle';
 import { Vector } from '../utils/Vector';
+import { BlockedType } from '../map/BlockedType';
 
 function normalize(val: number, max: number, min: number): number {
   return (val - min) / (max - min);
@@ -14,8 +14,9 @@ export class ManagerMap extends Drawable {
   private image: HTMLImageElement;
 
   private tiles: Tile[][] = [];
-  public water: Map<string, boolean> = new Map();
+  private blocked: Map<string, BlockedType> = new Map();
   public firstPosition: Vector;
+  public goldMinePosition: Vector;
 
   constructor(private width: number, private height: number) {
     super();
@@ -160,21 +161,35 @@ export class ManagerMap extends Drawable {
         }
 
         if (
-          m1 == TileType.WATER ||
-          m2 == TileType.WATER ||
-          m3 == TileType.WATER ||
-          m4 == TileType.WATER ||
-          m1 == TileType.FLOREST ||
-          m2 == TileType.FLOREST ||
-          m3 == TileType.FLOREST ||
-          m4 == TileType.FLOREST
+          !this.goldMinePosition &&
+          x > 5 &&
+          y > 5 &&
+          match[y][x] == TileType.GRASS &&
+          match[y][x + 1] == TileType.GRASS &&
+          match[y + 1][x] == TileType.GRASS &&
+          match[y + 1][x + 1] == TileType.GRASS &&
+          match[y][x + 2] == TileType.GRASS &&
+          match[y + 2][x] == TileType.GRASS &&
+          match[y + 2][x + 2] == TileType.GRASS
         ) {
-          this.water.set(`${x}-${y}`, true);
+          this.goldMinePosition = new Vector(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
+        }
+
+        if ([m1, m2, m3, m4].includes(TileType.WATER) || [m1, m2, m3, m4].includes(TileType.FLOREST)) {
+          this.addBlock(x, y, [m1, m2, m3, m4].includes(TileType.WATER) ? BlockedType.WATER : BlockedType.FLOREST);
         } else if (!this.firstPosition && x > 10 && y > 10) {
-          this.firstPosition = new Vector(x * 32, y * 32);
+          this.firstPosition = new Vector(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
         }
       }
     }
+  }
+
+  public isBlocked(x: number, y: number): boolean {
+    return this.blocked.has(`${x}-${y}`);
+  }
+
+  public addBlock(x: number, y: number, type: BlockedType): void {
+    this.blocked.set(`${x}-${y}`, type);
   }
 
   public draw(): void {
@@ -182,7 +197,7 @@ export class ManagerMap extends Drawable {
       for (let x = 0; x < this.tiles[y].length; x++) {
         this.tiles[y][x].draw();
 
-        // if (this.water.has(`${x}-${y}`)) {
+        // if (this.blocked.has(`${x}-${y}`)) {
         //   this.drawRectangle(
         //     new Rectangle(new Vector(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE), Tile.TILE_SIZE, Tile.TILE_SIZE),
         //     true,
