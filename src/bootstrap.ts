@@ -7,7 +7,7 @@ function run(): void {
   const map = document.querySelector<HTMLCanvasElement>('#map');
   const mapContext = map.getContext('2d');
 
-  new Game(canvasContext, mapContext, 1888, 1088);
+  new Game(canvasContext, mapContext, 1568, 1088);
 }
 
 run();

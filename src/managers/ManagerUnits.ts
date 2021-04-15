@@ -5,7 +5,7 @@ import { ManagerMap } from './ManagerMap';
 import { ManagerMouse } from './ManagerMouse';
 
 export class ManagerUnits {
-  private units: Unit[] = [];
+  public units: Unit[] = [];
   private managerMap: ManagerMap;
 
   public isRightPressed = false;
@@ -18,7 +18,7 @@ export class ManagerUnits {
 
     for (let index = 0; index < 1; index++) {
       const sprite = new Unit();
-      await sprite.setup(managerMap.firstPosition.x + 32 * index, managerMap.firstPosition.y, managerMap);
+      await sprite.setup(managerMap.firstPosition.x + 32 * index, managerMap.firstPosition.y);
 
       this.units.push(sprite);
     }

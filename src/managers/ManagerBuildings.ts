@@ -4,7 +4,7 @@ import { ManagerMap } from './ManagerMap';
 import { ManagerMouse } from './ManagerMouse';
 
 export class ManagerBuildings {
-  private buildings: Building[] = [];
+  public buildings: Building[] = [];
 
   public isRightPressed = false;
   public lastRightPressed = false;

@@ -6,7 +6,6 @@ import { Rectangle } from '../utils/Rectangle';
 import { Vector } from '../utils/Vector';
 import { Game } from '../Game';
 import { Pathfinder, Node } from '../map/Pathfinder';
-import { ManagerMap } from '../managers/ManagerMap';
 
 export class Unit extends Animation {
   public position: Vector;
@@ -19,11 +18,17 @@ export class Unit extends Animation {
 
   public pathfinder: Pathfinder = new Pathfinder();
 
-  public async setup(x: number, y: number, managerMap: ManagerMap): Promise<void> {
+  public portraitX: number;
+  public portraitY: number;
+
+  public async setup(x: number, y: number): Promise<void> {
     this.image = await ImageUtils.load('data/units/peasant/spritesheet.png');
 
     this.position = new Vector(x, y);
     this.boundingBox = new Rectangle(this.position, 25, 29);
+
+    this.portraitX = 0;
+    this.portraitY = 0;
 
     this.setState(UnitState.IDLE);
   }
@@ -44,8 +49,6 @@ export class Unit extends Animation {
     }
 
     if (!this.destination && this.destinationPath && this.destinationPath.length > 0) {
-      // console.log('start', this.destinationPath);
-
       this.destination = this.destinationPath[0].mapPosition;
     }
 
@@ -55,21 +58,17 @@ export class Unit extends Animation {
 
       this.setState(UnitState.WALK);
 
-      // if (Math.abs(this.destination.x - this.position.x) >= 1) {
       if (this.destination.x > this.position.x) {
         deltaX = 1;
       } else if (this.destination.x < this.position.x) {
         deltaX = -1;
       }
-      // }
 
-      // if (Math.abs(this.destination.y - this.position.y) >= 1) {
       if (this.destination.y > this.position.y) {
         deltaY = 1;
       } else if (this.destination.y < this.position.y) {
         deltaY = -1;
       }
-      // }
 
       if (deltaX > 0) {
         this.directionHorizontal = 'right';

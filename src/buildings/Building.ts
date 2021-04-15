@@ -13,11 +13,17 @@ export class Building extends Drawable {
 
   public isSelected = false;
 
+  public portraitX: number;
+  public portraitY: number;
+
   public async setup(x: number, y: number): Promise<void> {
     this.image = await ImageUtils.load('data/buildings/buildings.png');
 
     this.position = new Vector(x, y);
     this.boundingBox = new Rectangle(this.position, frames['gold-mine']['normal'].width, frames['gold-mine']['normal'].height);
+
+    this.portraitX = 4;
+    this.portraitY = 7;
   }
 
   public update(): void {

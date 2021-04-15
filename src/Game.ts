@@ -4,10 +4,12 @@ import { ManagerMouse } from './managers/ManagerMouse';
 import { ManagerUnits } from './managers/ManagerUnits';
 import { ManagerBuildings } from './managers/ManagerBuildings';
 import { Drawable } from './utils/Drawable';
+import { UI } from './ui/UI';
 
 var stats = new Stats();
 stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild(stats.dom);
+
 export class Game extends Drawable {
   public static context: CanvasRenderingContext2D;
   public static mapContext: CanvasRenderingContext2D;
@@ -18,6 +20,8 @@ export class Game extends Drawable {
   private managerMouse: ManagerMouse;
   private managerUnits: ManagerUnits;
   private managerBuildings: ManagerBuildings;
+
+  private ui: UI;
 
   private lastTime: number;
 
@@ -43,6 +47,9 @@ export class Game extends Drawable {
     this.managerBuildings = new ManagerBuildings();
     await this.managerBuildings.setup(this.managerMap);
 
+    this.ui = new UI(this.width, this.height, this.managerMap, this.managerMouse, this.managerUnits, this.managerBuildings);
+    await this.ui.setup();
+
     this.lastTime = this.getTimestamp();
 
     this.managerMap.draw();
@@ -66,6 +73,9 @@ export class Game extends Drawable {
     this.managerUnits.draw();
 
     this.managerMouse.draw();
+
+    this.ui.update();
+    this.ui.draw();
 
     stats.end();
 
